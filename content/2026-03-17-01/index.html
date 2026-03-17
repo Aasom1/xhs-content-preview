@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豆包床新品 - 小红书</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
+            background: #fff;
+            color: #333;
+        }
+        
+        /* 顶部导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+        
+        .nav-back {
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+            font-size: 20px;
+            color: #333;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            margin-top: 44px;
+            padding-bottom: 60px;
+        }
+        
+        /* 图片轮播区 */
+        .image-carousel {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #000;
+            overflow: hidden;
+        }
+        
+        .carousel-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            scroll-snap-type: x mandatory;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .carousel-item {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-indicator {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* 内容区 */
+        .content-section {
+            padding: 16px;
+        }
+        
+        /* 用户信息 */
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        .user-details {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .user-location {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .follow-btn {
+            background: #ff2442;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        /* 标题 */
+        .post-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        /* 正文 */
+        .post-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        .post-content p {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            font-weight: 600;
+        }
+        
+        /* 店铺卡片 */
+        .store-card {
+            background: linear-gradient(135deg, #fff5f5 0%, #fff9f9 100%);
+            border: 1px solid #ffe5e5;
+            border-radius: 12px;
+            padding: 14px;
+            margin: 16px 0;
+        }
+        
+        .store-card-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .store-card-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .store-icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        /* 标签 */
+        .tags-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        
+        .tag {
+            background: #f7f8fa;
+            color: #666;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        /* 互动数据 */
+        .engagement-bar {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-top: 0.5px solid #f0f0f0;
+            border-bottom: 0.5px solid #f0f0f0;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #999;
+        }
+        
+        .engagement-item {
+            margin-right: 16px;
+        }
+        
+        /* 底部操作栏 */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            border-top: 0.5px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 100;
+        }
+        
+        .comment-input {
+            flex: 1;
+            background: #f7f8fa;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #999;
+            margin-right: 16px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #333;
+        }
+        
+        .action-icon {
+            font-size: 24px;
+        }
+        
+        .action-label {
+            font-size: 11px;
+            color: #999;
+        }
+        
+        .like-btn.active .action-icon {
+            color: #ff2442;
+        }
+        
+        .collect-btn.active .action-icon {
+            color: #ffb800;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <div class="nav-back">←</div>
+        <div class="nav-actions">
+            <span>⋯</span>
+        </div>
+    </div>
+    
+    <!-- 主内容 -->
+    <div class="main-content">
+        <!-- 图片轮播 -->
+        <div class="image-carousel">
+            <div class="carousel-container" id="carousel">
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木03.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木06.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木11.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木18.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木21.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木30.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木35.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木40.jpeg" alt="豆包床">
+                </div>
+                <div class="carousel-item">
+                    <img src="../merchants/default/assets/products/豆包床/2026 01 15 豆包床 榆木41.jpeg" alt="豆包床">
+                </div>
+            </div>
+            <div class="carousel-indicator">
+                <span id="current-slide">1</span> / 9
+            </div>
+        </div>
+        
+        <!-- 内容区 -->
+        <div class="content-section">
+            <!-- 用户信息 -->
+            <div class="user-info">
+                <div class="user-avatar">厌</div>
+                <div class="user-details">
+                    <div class="user-name">厌式房间</div>
+                    <div class="user-location">北京·798艺术区</div>
+                </div>
+                <button class="follow-btn">关注</button>
+            </div>
+            
+            <!-- 标题 -->
+            <div class="post-title">
+                这张床，让我每天早上都不想起来了🛏️
+            </div>
+            
+            <!-- 正文 -->
+            <div class="post-content">
+                <p>早上闹钟响了三次，我还是赖在床上不想动。</p>
+                
+                <p>不是我懒，是这张豆包床真的太舒服了😭</p>
+                
+                <p><span class="highlight">榆木的温润质感</span>，摸起来像被岁月打磨过的老物件，有种说不出的安心感。</p>
+                
+                <p>床头圆润的弧线，像一个温柔的拥抱，靠着看书、刷手机都特别舒服。</p>
+                
+                <p><span class="highlight">最爱的是它的高度</span>——不高不低刚刚好，坐在床沿换鞋的时候，脚能稳稳踩在地上，起身也不费劲。</p>
+                
+                <p>晚上关了灯，月光透过窗帘洒在床上，榆木的纹理在光影里若隐若现，整个卧室都变得温柔起来。</p>
+                
+                <p><span class="highlight">这不是一张床，是一个让人想赖着不走的小世界。</span></p>
+                
+                <p>如果你也想要一张"起不来"的床，来798找我们吧～</p>
+            </div>
+            
+            <!-- 店铺卡片 -->
+            <div class="store-card">
+                <div class="store-card-item">
+                    <span class="store-icon">📍</span>
+                    <strong>厌式房间 | 北京798艺术区</strong>
+                </div>
+                <div class="store-card-item">
+                    <span class="store-icon">🛏️</span>
+                    <strong>豆包床 | 榆木款</strong>
+                </div>
+                <div class="store-card-item">
+                    <span class="store-icon">💬</span>
+                    <strong>DM了解更多</strong>
+                </div>
+            </div>
+            
+            <!-- 标签 -->
+            <div class="tags-section">
+                <span class="tag">#原创设计家具</span>
+                <span class="tag">#榆木床</span>
+                <span class="tag">#卧室设计</span>
+                <span class="tag">#798艺术区</span>
+                <span class="tag">#厌式房间</span>
+                <span class="tag">#家居好物</span>
+                <span class="tag">#新品上市</span>
+                <span class="tag">#实木家具</span>
+                <span class="tag">#北京探店</span>
+                <span class="tag">#设计师品牌</span>
+            </div>
+            
+            <!-- 互动数据 -->
+            <div class="engagement-bar">
+                <span class="engagement-item">2026-03-16 21:50</span>
+                <span class="engagement-item">北京</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部操作栏 -->
+    <div class="bottom-bar">
+        <input type="text" class="comment-input" placeholder="说点什么..." readonly>
+        <div class="action-buttons">
+            <div class="action-btn like-btn" onclick="this.classList.toggle('active')">
+                <div class="action-icon">♡</div>
+                <div class="action-label">1.2k</div>
+            </div>
+            <div class="action-btn collect-btn" onclick="this.classList.toggle('active')">
+                <div class="action-icon">☆</div>
+                <div class="action-label">328</div>
+            </div>
+            <div class="action-btn">
+                <div class="action-icon">💬</div>
+                <div class="action-label">89</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 图片轮播指示器
+        const carousel = document.getElementById('carousel');
+        const currentSlide = document.getElementById('current-slide');
+        
+        carousel.addEventListener('scroll', () => {
+            const slideWidth = carousel.offsetWidth;
+            const currentIndex = Math.round(carousel.scrollLeft / slideWidth) + 1;
+            currentSlide.textContent = currentIndex;
+        });
+    </script>
+</body>
+</html>
