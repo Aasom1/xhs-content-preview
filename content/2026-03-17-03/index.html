@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小红书内容预览 - 小朋友抢着睡的床</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif; background: #fff; color: #333; line-height: 1.6; overflow-x: hidden; }
+        .user-header { display: flex; align-items: center; padding: 12px 16px; background: #fff; border-bottom: 1px solid #f5f5f5; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: bold; margin-right: 10px; }
+        .user-info { flex: 1; }
+        .user-name { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 2px; }
+        .user-time { font-size: 12px; color: #999; }
+        .image-carousel { width: 100%; position: relative; background: #f8f8f8; }
+        .carousel-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .carousel-container::-webkit-scrollbar { display: none; }
+        .carousel-item { min-width: 100%; scroll-snap-align: start; }
+        .carousel-item img { width: 100%; height: auto; display: block; }
+        .carousel-indicator { position: absolute; bottom: 12px; right: 12px; background: rgba(0, 0, 0, 0.5); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; }
+        .content-section { padding: 16px; background: #fff; }
+        .content-title { font-size: 18px; font-weight: 600; color: #333; margin-bottom: 12px; line-height: 1.4; }
+        .content-text { font-size: 15px; color: #333; line-height: 1.8; white-space: pre-wrap; word-wrap: break-word; }
+        .content-text p { margin-bottom: 8px; }
+        .tags-section { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; padding: 0 16px 16px; }
+        .tag { color: #0084ff; font-size: 14px; font-weight: 500; }
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #f0f0f0; padding: 8px 16px; display: flex; align-items: center; gap: 12px; z-index: 100; }
+        .input-box { flex: 1; background: #f7f7f7; border-radius: 20px; padding: 8px 16px; font-size: 14px; color: #999; pointer-events: none; user-select: none; }
+        .action-buttons { display: flex; gap: 16px; align-items: center; }
+        .action-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: default; user-select: none; }
+        .action-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .action-label { font-size: 11px; color: #666; }
+        .bottom-spacer { height: 60px; }
+        @media (min-width: 600px) {
+            body { background: #f5f5f5; }
+            .mobile-container { max-width: 420px; margin: 20px auto; background: #fff; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; }
+            .bottom-bar { position: static; border-radius: 0 0 12px 12px; }
+            .bottom-spacer { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="user-header">
+            <div class="user-avatar">厌</div>
+            <div class="user-info">
+                <div class="user-name">厌式房间</div>
+                <div class="user-time">刚刚</div>
+            </div>
+        </div>
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-item"><img src="./images/01.jpg" alt="产品图片1"></div>
+                <div class="carousel-item"><img src="./images/02.jpg" alt="产品图片2"></div>
+                <div class="carousel-item"><img src="./images/03.jpg" alt="产品图片3"></div>
+            </div>
+            <div class="carousel-indicator">1/3</div>
+        </div>
+        <div class="content-section">
+            <div class="content-title">小朋友抢着睡的床｜可爱到挪不动脚</div>
+            <div class="content-text">小朋友抢着睡的床｜可爱到挪不动脚🧸
+
+自从换了豆包床，我家娃天天自己主动上床睡觉！以前要哄半天才肯睡，现在到点就往床上跑～
+
+🛏️ 豆包床也太可爱了吧！圆润饱满的造型，像一个大大的豆包棉花糖🍡，小朋友一看就超喜欢～
+
+✅ 全圆角设计：床边角都是圆润的，小朋友磕到也不疼
+✅ 低重心设计：床离地不高，小朋友自己上下床超安全
+✅ 趣味造型：可爱的圆润外观，简直是儿童房颜值担当
+
+我家娃现在逢人就说"我的床最可爱"😄 老母亲终于不用天天催睡觉了！
+
+📍 店铺：厌式房间
+🧸 适合年龄：3-12岁
+
+你们家小朋友喜欢什么样的床？评论区聊聊～</div>
+        </div>
+        <div class="tags-section">
+            <span class="tag">#儿童房</span>
+            <span class="tag">#豆包床</span>
+            <span class="tag">#有娃家庭</span>
+            <span class="tag">#家居好物</span>
+            <span class="tag">#儿童床</span>
+            <span class="tag">#亲子家居</span>
+            <span class="tag">#卧室改造</span>
+            <span class="tag">#上海妈妈</span>
+        </div>
+        <div class="bottom-spacer"></div>
+        <div class="bottom-bar">
+            <div class="input-box">说点什么...</div>
+            <div class="action-buttons">
+                <div class="action-btn">
+                    <div class="action-icon">❤️</div>
+                    <div class="action-label">256</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">⭐</div>
+                    <div class="action-label">189</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">💬</div>
+                    <div class="action-label">38</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
