@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>木制娃娃机2.0来了！这次我夹到了什么🎁 - 小红书内容预览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 顶部用户信息栏 */
+        .user-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #fff;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .user-time {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* 图片轮播区 */
+        .image-carousel {
+            width: 100%;
+            position: relative;
+            background: #f8f8f8;
+        }
+        
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            scroll-snap-align: start;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .carousel-indicator {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        /* 内容区 */
+        .content-section {
+            padding: 16px;
+            background: #fff;
+        }
+        
+        .content-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .content-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .content-text p {
+            margin-bottom: 8px;
+        }
+        
+        /* 标签区 */
+        .tags-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 0 16px 16px;
+        }
+        
+        .tag {
+            color: #0084ff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* 底部互动栏 */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #f0f0f0;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
+        }
+        
+        .input-box {
+            flex: 1;
+            background: #f7f7f7;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #999;
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            cursor: default;
+            user-select: none;
+        }
+        
+        .action-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .action-label {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        /* 占位空间，避免内容被底部栏遮挡 */
+        .bottom-spacer {
+            height: 60px;
+        }
+        
+        /* 响应式调整 */
+        @media (min-width: 600px) {
+            body {
+                background: #f5f5f5;
+            }
+            
+            .mobile-container {
+                max-width: 420px;
+                margin: 20px auto;
+                background: #fff;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            
+            .bottom-bar {
+                position: static;
+                border-radius: 0 0 12px 12px;
+            }
+            
+            .bottom-spacer {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- 顶部用户信息 -->
+        <div class="user-header">
+            <div class="user-avatar">M</div>
+            <div class="user-info">
+                <div class="user-name">MOMO</div>
+                <div class="user-time">2小时前</div>
+            </div>
+        </div>
+        
+        <!-- 图片轮播 -->
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-item"><img src="./images/img_001.jpg" alt="图片1"></div><div class="carousel-item"><img src="./images/img_002.jpg" alt="图片2"></div>
+            </div>
+            <div class="carousel-indicator">1\/2</div>
+        </div>
+        
+        <!-- 内容区 -->
+        <div class="content-section">
+            <div class="content-title">木制娃娃机2.0来了！这次我夹到了什么🎁</div>
+            <div class="content-text">还记得我们家的木制娃娃机吗？
+
+之前发过一次，好多人在问怎么买。
+
+这次2.0版本来了，更大！更好夹！更上瘾！
+
+纯手工木制框架，比那种塑料娃娃机质感好太多。
+
+放在家里就是一个超酷的装饰品。
+
+周末朋友来家里聚会，围着它玩了一下午。
+
+• 尺寸：比1.0大了30%
+• 材质：全实木手工制作
+• 可夹物品：小零食、钥匙扣、小玩具都行
+
+你们想夹什么？评论区说说看，抽一个送！🎁</div>
+        </div>
+        
+        <!-- 标签区 -->
+        <div class="tags-section">
+            <span class="tag">#娃娃机 木制玩具 家居好物 上海探店 厌式房间 趣味家居 周末聚会</span> 
+        </div>
+        
+        <!-- 底部占位 -->
+        <div class="bottom-spacer"></div>
+        
+        <!-- 底部互动栏 -->
+        <div class="bottom-bar">
+            <div class="input-box">说点什么...</div>
+            <div class="action-buttons">
+                <div class="action-btn">
+                    <div class="action-icon">❤️</div>
+                    <div class="action-label">1286</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">⭐</div>
+                    <div class="action-label">342</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">💬</div>
+                    <div class="action-label">67</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
