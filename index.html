@@ -5,86 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小红书内容预览 - 快快助手</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
-        
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-        
-        .content-list {
-            display: grid;
-            gap: 20px;
-        }
-        
-        .content-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .content-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .content-card h2 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #333;
-        }
-        
-        .content-card .meta {
-            font-size: 14px;
-            color: #999;
-            margin-bottom: 12px;
-        }
-        
-        .content-card .preview {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .footer {
-            text-align: center;
-            color: white;
-            margin-top: 60px;
-            opacity: 0.8;
-            font-size: 14px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 40px 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 40px; }
+        .header h1 { font-size: 32px; margin-bottom: 10px; }
+        .header p { font-size: 16px; opacity: 0.9; }
+        .section-title { color: white; font-size: 20px; font-weight: 600; margin: 30px 0 15px; padding-left: 12px; border-left: 4px solid rgba(255,255,255,0.6); }
+        .content-list { display: grid; gap: 20px; }
+        .content-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; display: block; }
+        .content-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+        .content-card h2 { font-size: 20px; margin-bottom: 8px; color: #333; }
+        .content-card .meta { font-size: 14px; color: #999; margin-bottom: 12px; }
+        .content-card .preview { font-size: 14px; color: #666; line-height: 1.6; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; color: white; margin-right: 6px; }
+        .badge-pin { background: #ff2442; }
+        .badge-pain { background: #ff8c00; }
+        .footer { text-align: center; color: white; margin-top: 60px; opacity: 0.8; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -93,45 +30,62 @@
             <h1>🦞 小红书内容预览</h1>
             <p>快快助手生成的内容预览</p>
         </div>
-        
+
+        <div class="section-title">🧒 卡卡亲子俱乐部 · 2026-03-19</div>
+
         <div class="content-list">
-            <a href="./content/2026-03-17-05/" class="content-card">
-                <h2>从巴黎到798，她用10年做了一把椅子</h2>
-                <div class="meta">2026-03-17 · 品牌故事</div>
-                <div class="preview">
-                    10年磨一剑！创始人从巴黎到798的原创设计之路...
-                </div>
+            <a href="./content/2026-03-19-pin1/" class="content-card">
+                <h2><span class="badge badge-pin">置顶</span> 在杭州，给孩子找了一个学校和家庭之外的第三空间</h2>
+                <div class="meta">2026-03-19 · 空间概念型 · 品宣</div>
+                <div class="preview">做了15年儿童教育，我越来越确定一件事：孩子需要的，从来不是再多一门课。而是一个让他可以犯错、可以闹、可以动手、可以撒野的地方…</div>
             </a>
-            <a href="./content/2026-03-17-04/" class="content-card">
-                <h2>她在50㎡的家里，放了我们的陆游椅</h2>
-                <div class="meta">2026-03-17 · 场景营销</div>
-                <div class="preview">
-                    小户型福音！原木摇椅打造治愈角落...
-                </div>
+            <a href="./content/2026-03-19-pin2/" class="content-card">
+                <h2><span class="badge badge-pin">置顶</span> 周末不知道带娃去哪？杭州这家亲子俱乐部替你想好了</h2>
+                <div class="meta">2026-03-19 · 解决痛点型 · 品宣</div>
+                <div class="preview">每到周五就开始发愁：周末带娃去哪？游乐场玩一小时就腻了，博物馆孩子太小看不懂…</div>
             </a>
-            <a href="./content/2026-03-17-03/" class="content-card">
-                <h2>小朋友抢着睡的床｜可爱到挪不动脚</h2>
-                <div class="meta">2026-03-17 · 亲子场景</div>
-                <div class="preview">
-                    豆包床圆润可爱，全圆角设计更安全...
-                </div>
+            <a href="./content/2026-03-19-pain1/" class="content-card">
+                <h2><span class="badge badge-pain">痛点</span> 孩子不敢跟别人玩，我试了很多方法都没用，直到</h2>
+                <div class="meta">2026-03-19 · 痛点解决型 · 社交障碍</div>
+                <div class="preview">幼儿园老师跟我说，我家孩子从不主动找小朋友玩。我当时挺慌的…</div>
             </a>
-            <a href="./content/2026-03-17-02/" class="content-card">
-                <h2>奶油风卧室｜这张床让我不想出门</h2>
-                <div class="meta">2026-03-17 · 场景营销</div>
-                <div class="preview">
-                    杏子灰+波浪形床头，奶油风卧室完美搭配...
-                </div>
+            <a href="./content/2026-03-19-pain2/" class="content-card">
+                <h2><span class="badge badge-pain">痛点</span> 孩子坐不住怎么办？一位杭州妈妈的分享</h2>
+                <div class="meta">2026-03-19 · 痛点解决型 · 专注力</div>
+                <div class="preview">"你家孩子是不是也坐不住？"这是我和其他家长聊天时，听到最多的一句话…</div>
             </a>
-            <a href="./content/2026-03-17-01/" class="content-card">
-                <h2>豆包床新品推荐</h2>
-                <div class="meta">2026-03-17 · 产品推荐</div>
-                <div class="preview">
-                    超治愈的豆包床来啦！软糯Q弹，像躺在云朵上...
-                </div>
+            <a href="./content/2026-03-19-pain3/" class="content-card">
+                <h2><span class="badge badge-pain">痛点</span> 杭州周末遛娃天花板？这家亲子俱乐部我带孩子去了半年</h2>
+                <div class="meta">2026-03-19 · 痛点解决型 · 周末遛娃</div>
+                <div class="preview">说实话，之前每个周末我都不知道带娃去哪。后来被朋友拉去了一个叫爱卡卡亲子俱乐部的地方…</div>
             </a>
         </div>
-        
+
+        <div class="section-title">🪵 其他内容</div>
+        <div class="content-list">
+            <a href="./content/2026-03-22-01/" class="content-card">
+                <h2>豆包床新品推荐</h2>
+                <div class="meta">2026-03-22 · 产品推荐</div>
+                <div class="preview">超治愈的豆包床来啦！软糯Q弹，像躺在云朵上…</div>
+            </a>
+            <a href="./content/2026-03-19-01/" class="content-card">
+                <h2>2026-03-19 笔记 01</h2>
+                <div class="meta">2026-03-19</div>
+            </a>
+            <a href="./content/2026-03-19-02/" class="content-card">
+                <h2>2026-03-19 笔记 02</h2>
+                <div class="meta">2026-03-19</div>
+            </a>
+            <a href="./content/2026-03-19-03/" class="content-card">
+                <h2>2026-03-19 笔记 03</h2>
+                <div class="meta">2026-03-19</div>
+            </a>
+            <a href="./content/2026-03-19-04/" class="content-card">
+                <h2>2026-03-19 笔记 04</h2>
+                <div class="meta">2026-03-19</div>
+            </a>
+        </div>
+
         <div class="footer">
             <p>由快快助手自动生成 · Powered by OpenClaw</p>
         </div>
