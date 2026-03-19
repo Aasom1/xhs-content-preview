@@ -3,591 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>爱卡卡亲子俱乐部 · 小红书运营策略</title>
+<title>爱卡卡 · 小红书运营规划</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
-  
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  
   body {
-    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background: linear-gradient(135deg, #f0f7f0 0%, #e8f5e9 30%, #fff8e1 70%, #fce4ec 100%);
-    min-height: 100vh;
+    font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+    background: #f5f7f5;
     display: flex;
     justify-content: center;
     padding: 40px 20px;
   }
-  
-  .container {
-    max-width: 1200px;
-    width: 100%;
+  .page {
+    width: 800px;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
   }
-  
+
   /* 头部 */
-  .header {
-    text-align: center;
-    margin-bottom: 36px;
-    padding: 32px 40px;
-    background: rgba(255,255,255,0.85);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 24px rgba(76,175,80,0.1);
-  }
-  
-  .header .brand {
-    font-size: 13px;
-    color: #66bb6a;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  
-  .header h1 {
-    font-size: 28px;
-    color: #2e7d32;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  
-  .header .subtitle {
-    font-size: 15px;
-    color: #78909c;
-    font-weight: 400;
-  }
-  
-  /* 三栏布局 */
-  .main-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.3fr 1fr;
-    gap: 24px;
-    margin-bottom: 24px;
-  }
-  
-  .card {
-    background: rgba(255,255,255,0.9);
-    border-radius: 18px;
-    padding: 28px 26px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  }
-  
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
-    padding-bottom: 14px;
-    border-bottom: 2px solid #f1f8e9;
-  }
-  
-  .card-number {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 700;
+  .top {
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 60%, #66bb6a 100%);
+    padding: 36px 44px 32px;
     color: white;
-    flex-shrink: 0;
   }
-  
-  .num-green { background: linear-gradient(135deg, #66bb6a, #43a047); }
-  .num-blue { background: linear-gradient(135deg, #42a5f5, #1e88e5); }
-  .num-orange { background: linear-gradient(135deg, #ffa726, #fb8c00); }
-  
-  .card-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: #37474f;
+  .top h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .top p { font-size: 14px; opacity: 0.85; }
+
+  /* 定位条 */
+  .positioning {
+    display: flex;
+    gap: 12px;
+    padding: 24px 44px;
+    border-bottom: 1px solid #f0f0f0;
   }
-  
-  /* 卡片内容样式 */
-  .section-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #90a4ae;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    margin-top: 18px;
-  }
-  
-  .section-label:first-of-type { margin-top: 0; }
-  
-  .highlight-box {
-    background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
+  .pos-item {
+    flex: 1;
+    text-align: center;
+    padding: 16px 8px;
     border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 14px;
-    border-left: 3px solid #66bb6a;
   }
-  
-  .highlight-box.blue {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    border-left-color: #42a5f5;
+  .pos-item:nth-child(1) { background: #f1f8e9; }
+  .pos-item:nth-child(2) { background: #e3f2fd; }
+  .pos-item:nth-child(3) { background: #fff3e0; }
+  .pos-emoji { font-size: 24px; margin-bottom: 6px; }
+  .pos-label { font-size: 15px; font-weight: 600; color: #37474f; margin-bottom: 2px; }
+  .pos-desc { font-size: 11px; color: #78909c; line-height: 1.5; }
+
+  /* 发布规划 */
+  .plan {
+    padding: 28px 44px 8px;
   }
-  
-  .highlight-box.orange {
-    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-    border-left-color: #ffa726;
-  }
-  
-  .highlight-box .box-title {
-    font-size: 13px;
+  .section-title {
+    font-size: 15px;
     font-weight: 600;
-    color: #2e7d32;
-    margin-bottom: 4px;
-  }
-  
-  .highlight-box.blue .box-title { color: #1565c0; }
-  .highlight-box.orange .box-title { color: #e65100; }
-  
-  .highlight-box p {
-    font-size: 12.5px;
-    color: #546e7a;
-    line-height: 1.6;
-  }
-  
-  .tag-group {
+    color: #37474f;
+    margin-bottom: 16px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
-  }
-  
-  .tag {
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-  
-  .tag-green { background: #e8f5e9; color: #2e7d32; }
-  .tag-blue { background: #e3f2fd; color: #1565c0; }
-  .tag-orange { background: #fff3e0; color: #e65100; }
-  .tag-pink { background: #fce4ec; color: #c62828; }
-  .tag-purple { background: #f3e5f5; color: #6a1b9a; }
-  
-  .keyword-row {
-    display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
-    margin-bottom: 10px;
   }
-  
-  .keyword-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    margin-top: 6px;
-    flex-shrink: 0;
-  }
-  
-  .dot-green { background: #66bb6a; }
-  .dot-blue { background: #42a5f5; }
-  .dot-orange { background: #ffa726; }
-  
-  .keyword-text {
-    font-size: 12.5px;
-    color: #455a64;
-    line-height: 1.6;
-  }
-  
-  .keyword-text strong {
-    color: #37474f;
-    font-weight: 600;
-  }
-  
-  /* 发布规划表格 */
-  .plan-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 10px;
-    overflow: hidden;
-    font-size: 11.5px;
-    margin-top: 4px;
-  }
-  
-  .plan-table th {
-    background: #f1f8e9;
-    color: #2e7d32;
-    padding: 8px 10px;
-    font-weight: 600;
-    text-align: left;
-    font-size: 11px;
-  }
-  
-  .plan-table td {
-    padding: 7px 10px;
-    border-bottom: 1px solid #f5f5f5;
-    color: #546e7a;
-    vertical-align: top;
-    line-height: 1.5;
-  }
-  
-  .plan-table tr:last-child td { border-bottom: none; }
-  
-  .plan-table .type-badge {
-    display: inline-block;
-    font-size: 10px;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-weight: 500;
-  }
-  
-  .badge-brand { background: #e8f5e9; color: #2e7d32; }
-  .badge-pain { background: #e3f2fd; color: #1565c0; }
-  .badge-event { background: #fff3e0; color: #e65100; }
-  
-  /* 策略说明 */
-  .strategy-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 14px;
-    padding: 12px 14px;
-    background: #fafafa;
-    border-radius: 10px;
-  }
-  
-  .strategy-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-  
-  .icon-1 { background: #e8f5e9; }
-  .icon-2 { background: #e3f2fd; }
-  .icon-3 { background: #fff3e0; }
-  .icon-4 { background: #f3e5f5; }
-  
-  .strategy-text .st-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: #37474f;
-    margin-bottom: 3px;
-  }
-  
-  .strategy-text .st-desc {
-    font-size: 11.5px;
-    color: #78909c;
-    line-height: 1.55;
-  }
-  
-  /* 底部比例条 */
-  .ratio-bar {
-    display: flex;
-    height: 10px;
-    border-radius: 5px;
-    overflow: hidden;
-    margin: 16px 0 8px;
-  }
-  
-  .ratio-brand { background: #66bb6a; flex: 3; }
-  .ratio-pain { background: #42a5f5; flex: 5; }
-  .ratio-event { background: #ffa726; flex: 2; }
-  
-  .ratio-legend {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    font-size: 11px;
-    color: #78909c;
-  }
-  
-  .ratio-legend span {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  
-  .legend-dot {
-    width: 8px;
-    height: 8px;
+  .section-title::before {
+    content: '';
+    width: 3px;
+    height: 16px;
+    background: #43a047;
     border-radius: 2px;
   }
-  
-  .legend-green { background: #66bb6a; }
-  .legend-blue { background: #42a5f5; }
-  .legend-orange { background: #ffa726; }
-  
-  /* 底部时间 */
-  .footer {
-    text-align: center;
-    padding: 16px;
-    font-size: 11px;
-    color: #b0bec5;
+  .weeks {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
   }
-  
-  /* 小红书规则提示 */
-  .xhs-tip {
-    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
-    border-radius: 10px;
-    padding: 12px 14px;
-    margin-top: 14px;
-    border-left: 3px solid #ec407a;
+  .week {
+    border: 1.5px solid #eee;
+    border-radius: 12px;
+    padding: 14px;
+    transition: all 0.2s;
   }
-  
-  .xhs-tip .box-title {
-    font-size: 12px;
+  .week:hover { border-color: #a5d6a7; }
+  .week-tag {
+    display: inline-block;
+    font-size: 10px;
     font-weight: 600;
-    color: #c62828;
-    margin-bottom: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
   }
-  
-  .xhs-tip p {
+  .w1-tag { background: #e8f5e9; color: #2e7d32; }
+  .w2-tag { background: #e3f2fd; color: #1565c0; }
+  .w3-tag { background: #fff3e0; color: #e65100; }
+  .w4-tag { background: #f3e5f5; color: #6a1b9a; }
+  .week-num { font-size: 12px; color: #b0bec5; margin-bottom: 4px; }
+  .week-content { font-size: 12px; color: #546e7a; line-height: 1.6; }
+  .week-content strong { color: #37474f; }
+
+  /* 比例条 */
+  .ratio-section {
+    padding: 20px 44px;
+  }
+  .ratio-bar {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .r-brand { background: #66bb6a; flex: 3; }
+  .r-pain { background: #42a5f5; flex: 5; }
+  .r-event { background: #ffa726; flex: 2; }
+  .ratio-labels {
+    display: flex;
+    gap: 20px;
     font-size: 11px;
-    color: #ad1457;
-    line-height: 1.6;
+    color: #90a4ae;
   }
+  .ratio-labels span { display: flex; align-items: center; gap: 5px; }
+  .rdot { width: 8px; height: 8px; border-radius: 2px; }
+  .rdot-g { background: #66bb6a; }
+  .rdot-b { background: #42a5f5; }
+  .rdot-o { background: #ffa726; }
+
+  /* 策略三句话 */
+  .strategy {
+    padding: 8px 44px 32px;
+  }
+  .strategy-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 12px 16px;
+    background: #fafbfa;
+    border-radius: 10px;
+    border-left: 3px solid #43a047;
+  }
+  .strategy-row:nth-child(2) { border-left-color: #42a5f5; }
+  .strategy-row:nth-child(3) { border-left-color: #ffa726; }
+  .s-num {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .strategy-row:nth-child(2) .s-num { background: #e3f2fd; color: #1565c0; }
+  .strategy-row:nth-child(3) .s-num { background: #fff3e0; color: #e65100; }
+  .s-text { font-size: 12.5px; color: #455a64; line-height: 1.6; }
+  .s-text strong { color: #37474f; }
 </style>
 </head>
 <body>
+<div class="page">
+  <div class="top">
+    <h1>爱卡卡亲子俱乐部 · 小红书运营规划</h1>
+    <p>账号定位 + 内容策略 + 月度节奏 ｜ 2026年3月</p>
+  </div>
 
-<div class="container">
-  <!-- 头部 -->
-  <div class="header">
-    <div class="brand">XIAOHONGSHU STRATEGY</div>
-    <h1>爱卡卡亲子俱乐部 · 小红书运营策略</h1>
-    <div class="subtitle">账号定位 + 月度发布规划 + 运营策略 | 2026年3月</div>
+  <!-- 三大板块 -->
+  <div class="positioning">
+    <div class="pos-item">
+      <div class="pos-emoji">🏔️</div>
+      <div class="pos-label">趣野</div>
+      <div class="pos-desc">每月一山、城市生存挑战、荒野求生<br>练胆量、练社交、练抗挫力</div>
+    </div>
+    <div class="pos-item">
+      <div class="pos-emoji">🪵</div>
+      <div class="pos-label">趣造</div>
+      <div class="pos-desc">木工、美术、手作<br>在动手里找到专注和自信</div>
+    </div>
+    <div class="pos-item">
+      <div class="pos-emoji">🌿</div>
+      <div class="pos-label">趣养</div>
+      <div class="pos-desc">妈妈课堂、情绪力培养<br>帮家长懂孩子、帮家庭共成长</div>
+    </div>
   </div>
-  
-  <!-- 三栏主体 -->
-  <div class="main-grid">
-    
-    <!-- 左栏：账号定位 -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-number num-green">01</div>
-        <div class="card-title">账号定位</div>
+
+  <!-- 月度规划 -->
+  <div class="plan">
+    <div class="section-title">第一个月发布节奏（共12-16篇）</div>
+    <div class="weeks">
+      <div class="week">
+        <div class="week-num">第1周</div>
+        <span class="week-tag w1-tag">建认知</span>
+        <div class="week-content">
+          <strong>品宣 ×2</strong><br>空间概念介绍<br>品牌定位传达<br><br><strong>痛点 ×1</strong><br>家长共鸣内容
+        </div>
       </div>
-      
-      <div class="section-label">核心定位</div>
-      <div class="highlight-box">
-        <div class="box-title">家庭适配养育空间</div>
-        <p>学校和家庭之外的「第三空间」，让孩子在真实体验中自然成长</p>
+      <div class="week">
+        <div class="week-num">第2周</div>
+        <span class="week-tag w2-tag">做种草</span>
+        <div class="week-content">
+          <strong>痛点 ×2</strong><br>社交/专注力/遛娃<br><br><strong>老师 ×1</strong><br>教育理念输出<br>建立专业信任
+        </div>
       </div>
-      
-      <div class="section-label">三大业务板块</div>
-      
-      <div class="highlight-box">
-        <div class="box-title">趣野 · 户外研学</div>
-        <p>每月一山亲子徒步、城市生存挑战、荒野求生</p>
+      <div class="week">
+        <div class="week-num">第3周</div>
+        <span class="week-tag w3-tag">促转化</span>
+        <div class="week-content">
+          <strong>活动 ×1</strong><br>每月一山预告<br><br><strong>痛点 ×1</strong><br><strong>趣养 ×1</strong><br>拓展妈妈群体
+        </div>
       </div>
-      <div class="highlight-box blue">
-        <div class="box-title">趣造 · 创意手作</div>
-        <p>木工、美术、艺术创作，培养专注力和创造力</p>
-      </div>
-      <div class="highlight-box orange">
-        <div class="box-title">趣养 · 家庭成长</div>
-        <p>妈妈课堂、情绪力培养、幼升小/青春期指导</p>
-      </div>
-      
-      <div class="section-label">品牌关键词</div>
-      <div class="tag-group">
-        <span class="tag tag-green">触觉养育</span>
-        <span class="tag tag-blue">SEL</span>
-        <span class="tag tag-orange">15年教育</span>
-        <span class="tag tag-pink">杭州本地</span>
-        <span class="tag tag-purple">分龄分层</span>
-      </div>
-      
-      <div class="section-label">目标用户</div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-green"></div>
-        <div class="keyword-text"><strong>核心人群：</strong>杭州25-40岁宝妈，3-16岁孩子家长</div>
-      </div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-green"></div>
-        <div class="keyword-text"><strong>搜索习惯：</strong>育儿痛点、情绪管理、周末遛娃</div>
-      </div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-green"></div>
-        <div class="keyword-text"><strong>核心诉求：</strong>孩子成长 + 自身解放 + 社交需求</div>
-      </div>
-      
-      <div class="xhs-tip">
-        <div class="box-title">差异化定位</div>
-        <p>不是培训机构（不贩卖焦虑）<br>不是游乐场（有教育理念）<br>是一个让家庭慢慢变好的空间</p>
+      <div class="week">
+        <div class="week-num">第4周</div>
+        <span class="week-tag w4-tag">做复盘</span>
+        <div class="week-content">
+          <strong>活动回顾 ×1</strong><br>真实反馈<br><br><strong>优势 ×1</strong><br>放大效果好的方向<br><strong>故事 ×1</strong>
+        </div>
       </div>
     </div>
-    
-    <!-- 中栏：月度发布规划 -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-number num-blue">02</div>
-        <div class="card-title">月度发布规划</div>
-      </div>
-      
-      <div class="section-label">发布节奏（示例月 · 共12-16篇）</div>
-      
-      <table class="plan-table">
-        <tr>
-          <th>周次</th>
-          <th>阶段</th>
-          <th>内容安排</th>
-          <th>目标</th>
-        </tr>
-        <tr>
-          <td><strong>W1</strong></td>
-          <td><span class="type-badge badge-brand">品宣期</span></td>
-          <td>空间概念 ×2<br>痛点型 ×1</td>
-          <td>建立品牌认知</td>
-        </tr>
-        <tr>
-          <td><strong>W2</strong></td>
-          <td><span class="type-badge badge-pain">种草期</span></td>
-          <td>痛点型 ×2<br>老师/理念 ×1</td>
-          <td>精准引流种草</td>
-        </tr>
-        <tr>
-          <td><strong>W3</strong></td>
-          <td><span class="type-badge badge-event">转化期</span></td>
-          <td>活动型 ×1<br>痛点型 ×1<br>趣养篇 ×1</td>
-          <td>活动转化+拓展</td>
-        </tr>
-        <tr>
-          <td><strong>W4</strong></td>
-          <td><span class="type-badge badge-brand">复盘期</span></td>
-          <td>活动回顾 ×1<br>优势放大 ×1<br>会员故事 ×1</td>
-          <td>信任+深度种草</td>
-        </tr>
-      </table>
-      
-      <div class="section-label">三类笔记比例</div>
-      <div class="ratio-bar">
-        <div class="ratio-brand"></div>
-        <div class="ratio-pain"></div>
-        <div class="ratio-event"></div>
-      </div>
-      <div class="ratio-legend">
-        <span><div class="legend-dot legend-green"></div> 品宣型 30%</span>
-        <span><div class="legend-dot legend-blue"></div> 痛点种草 50%</span>
-        <span><div class="legend-dot legend-orange"></div> 活动型 20%</span>
-      </div>
-      
-      <div class="section-label">置顶策略</div>
-      <div class="highlight-box blue">
-        <div class="box-title">动态置顶，数据驱动</div>
-        <p>W1-W2 先发品宣笔记 → 观察阅读/互动/收藏数据 → 选效果最好的1-2篇置顶 → 每月评估调整</p>
-      </div>
-      
-      <div class="section-label">发布时间</div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-blue"></div>
-        <div class="keyword-text"><strong>工作日：</strong>18:00-20:00（下班刷手机高峰）</div>
-      </div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-blue"></div>
-        <div class="keyword-text"><strong>周末：</strong>7:00-9:00 / 12:00-14:00</div>
-      </div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-blue"></div>
-        <div class="keyword-text"><strong>频率：</strong>每周3-4篇，不追求日更</div>
-      </div>
-      
-      <div class="section-label">笔记内容方向</div>
-      <div class="tag-group">
-        <span class="tag tag-green">空间概念</span>
-        <span class="tag tag-green">教育理念</span>
-        <span class="tag tag-green">妈妈成长</span>
-        <span class="tag tag-blue">社交障碍</span>
-        <span class="tag tag-blue">专注力</span>
-        <span class="tag tag-blue">周末遛娃</span>
-        <span class="tag tag-blue">幼升小</span>
-        <span class="tag tag-orange">活动预告</span>
-        <span class="tag tag-orange">活动回顾</span>
-        <span class="tag tag-orange">家长反馈</span>
-      </div>
-    </div>
-    
-    <!-- 右栏：运营策略 -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-number num-orange">03</div>
-        <div class="card-title">为什么这么规划</div>
-      </div>
-      
-      <div class="section-label">策略逻辑</div>
-      
-      <div class="strategy-item">
-        <div class="strategy-icon icon-1">1</div>
-        <div class="strategy-text">
-          <div class="st-title">先建认知，再引流量</div>
-          <div class="st-desc">账号目前粉丝仅9人，第一步必须建立「亲子空间」的品牌认知。家长需要先知道你是什么、能解决什么问题，才会关注和转化。</div>
-        </div>
-      </div>
-      
-      <div class="strategy-item">
-        <div class="strategy-icon icon-2">2</div>
-        <div class="strategy-text">
-          <div class="st-title">痛点内容驱动增长</div>
-          <div class="st-desc">50%比例的痛点型笔记，因为家长搜索习惯是按问题搜（"孩子坐不住""周末遛娃去哪"），痛点内容天然承接搜索流量，更容易被推荐。</div>
-        </div>
-      </div>
-      
-      <div class="strategy-item">
-        <div class="strategy-icon icon-3">3</div>
-        <div class="strategy-text">
-          <div class="st-title">活动笔记承接转化</div>
-          <div class="st-desc">20%的活动笔记有时效性，结合「每月一山」等爆款项目，制造紧迫感，直接引导报名和到店，是闭环的关键。</div>
-        </div>
-      </div>
-      
-      <div class="strategy-item">
-        <div class="strategy-icon icon-4">4</div>
-        <div class="strategy-text">
-          <div class="st-title">品宣笔记穿插防疲劳</div>
-          <div class="st-desc">30%品宣型维持品牌调性，穿插发布避免连续痛点内容让用户疲倦。从空间概念延伸到具体问题，而非单一产品宣传。</div>
-        </div>
-      </div>
-      
-      <div class="section-label">关键动作</div>
-      
-      <div class="highlight-box">
-        <div class="box-title">置顶笔记 = 品牌名片</div>
-        <p>新用户进主页第一眼看到的内容决定了是否关注。选数据最好的空间概念型置顶，完整传达品牌价值。</p>
-      </div>
-      
-      <div class="highlight-box blue">
-        <div class="box-title">碰碰贴 + UGC = 信任杠杆</div>
-        <p>收集真实家长反馈，优化碰碰贴内容，引导家长发笔记。真实口碑比官方宣传转化率高3-5倍。</p>
-      </div>
-      
-      <div class="highlight-box orange">
-        <div class="box-title">数据复盘驱动迭代</div>
-        <p>每周末分析笔记数据（阅读/互动/收藏），放大效果好的方向，淘汰效果差的，持续优化内容策略。</p>
-      </div>
-      
-      <div class="section-label">阶段目标</div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-orange"></div>
-        <div class="keyword-text"><strong>第1个月：</strong>建立品牌认知，测试内容方向</div>
-      </div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-orange"></div>
-        <div class="keyword-text"><strong>第2-3个月：</strong>优化爆款方向，积累初始粉丝</div>
-      </div>
-      <div class="keyword-row">
-        <div class="keyword-dot dot-orange"></div>
-        <div class="keyword-text"><strong>第3个月+：</strong>UGC驱动增长，活动闭环转化</div>
-      </div>
-    </div>
-    
   </div>
-  
-  <div class="footer">
-    爱卡卡亲子俱乐部 · 小红书运营策略方案 | 2026.03
+
+  <!-- 比例 -->
+  <div class="ratio-section">
+    <div class="ratio-bar">
+      <div class="r-brand"></div>
+      <div class="r-pain"></div>
+      <div class="r-event"></div>
+    </div>
+    <div class="ratio-labels">
+      <span><div class="rdot rdot-g"></div> 品宣型 30%</span>
+      <span><div class="rdot rdot-b"></div> 痛点种草 50%</span>
+      <span><div class="rdot rdot-o"></div> 活动型 20%</span>
+    </div>
+  </div>
+
+  <!-- 策略三句话 -->
+  <div class="strategy">
+    <div class="section-title">核心策略</div>
+    <div class="strategy-row">
+      <div class="s-num">1</div>
+      <div class="s-text"><strong>先让家长知道你是什么</strong> — 用品宣笔记建立「家庭适配养育空间」的品牌认知，选数据最好的1-2篇置顶，作为主页名片</div>
+    </div>
+    <div class="strategy-row">
+      <div class="s-num">2</div>
+      <div class="s-text"><strong>用家长的问题吸引家长</strong> — 痛点内容占50%，因为家长是按问题搜索的（"孩子坐不住""周末遛娃去哪"），更容易被推荐</div>
+    </div>
+    <div class="strategy-row">
+      <div class="s-num">3</div>
+      <div class="s-text"><strong>活动笔记承接转化</strong> — 「每月一山」等爆款项目制造紧迫感，引导报名到店，完成从种草到转化的闭环</div>
+    </div>
   </div>
 </div>
-
 </body>
 </html>
