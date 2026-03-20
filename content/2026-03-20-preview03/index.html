@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>青隐净舍 - 粉晶手链</title>
+<title>青隐净舍 - 白玉多宝手串</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #fff; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif; max-width: 420px; margin: 0 auto; min-height: 100vh; }
@@ -64,24 +64,26 @@ body { background: #fff; font-family: -apple-system, BlinkMacSystemFont, 'PingFa
   <button class="follow-btn">+ 关注</button>
 </div>
 <div class="note-content">
-  <div class="note-title">选粉水晶只有一个标准：够不够透</div>
+  <div class="note-title">这串多宝，配了颗手工雕的莲花坠子</div>
   <div class="note-text">
-    <p>通透这件事，真的骗不了人。</p>
-    <p>我们挑原石的时候会一颗颗对着光看——棉絮少、冰裂少的才留下。</p>
-    <p>这两串，一串素珠，一串配了小银叶和黄玉雕件。</p>
-    <p>素串干净得像刚洗过的样子，配款的多了点灵气。</p>
-    <p>粉水晶不是什么名贵石种，但就是让人心情好。</p>
-    <p>不张扬，不喧哗，安安静静地待在手腕上。</p>
-    <p>很多女生来店里第一眼看中的都是这串。</p>
-    <p>送人也稳，不会出错的那种好看。</p>
+    <p>多宝串最怕的就是"乱"。</p>
+    <p>颜色一多就容易花，材质一杂就容易俗。</p>
+    <p>所以配色这件事，我试了很多次才定下来。</p>
+    <p>白玉打底，几颗绿玉做过渡，红石压住气场，底下挂一颗莲花雕件和黄玉坠。</p>
+    <p>莲花是我自己一点点雕出来的，线条不求工整，但求生动。</p>
+    <p>这串戴久了会有意思——</p>
+    <p>木的会包浆，玉的会更润，每一颗都会跟着你慢慢变。</p>
+    <p>时间养珠子，珠子也养人。</p>
+    <p>经常有客人戴着半年一年回来跟我说：比刚买的时候好看了。</p>
+    <p>我说：那是因为你戴了。</p>
   </div>
 </div>
 <div class="tags">
-  <span class="tag">#粉水晶</span>
-  <span class="tag">#天然水晶</span>
-  <span class="tag">#灵隐好物</span>
-  <span class="tag">#饰品分享</span>
-  <span class="tag">#女生礼物</span>
+  <span class="tag">#白玉手串</span>
+  <span class="tag">#多宝手链</span>
+  <span class="tag">#原创手作</span>
+  <span class="tag">#青隐净舍</span>
+  <span class="tag">#手工配饰</span>
 </div>
 <div class="publish-time">03-20 发布</div>
 <div style="height: 60px;"></div>
@@ -90,19 +92,9 @@ body { background: #fff; font-family: -apple-system, BlinkMacSystemFont, 'PingFa
   <span class="send-btn">发送</span>
 </div>
 <script>
-let current = 0;
-const track = document.getElementById('track');
-const counter = document.getElementById('counter');
-const total = track.children.length;
-document.getElementById('carousel').addEventListener('click', e => {
-  const rect = e.currentTarget.getBoundingClientRect();
-  if (e.clientX - rect.left > rect.width / 2) goTo(current + 1); else goTo(current - 1);
-});
-function goTo(i) {
-  current = Math.max(0, Math.min(i, total - 1));
-  track.style.transform = `translateX(-${current * 100}%)`;
-  counter.textContent = `${current + 1}/${total}`;
-}
+let current = 0;const track=document.getElementById('track'),counter=document.getElementById('counter'),total=track.children.length;
+document.getElementById('carousel').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();(e.clientX-r.left>r.width/2)?goTo(current+1):goTo(current-1)});
+function goTo(i){current=Math.max(0,Math.min(i,total-1));track.style.transform=`translateX(-${current*100}%)`;counter.textContent=`${current+1}/${total}`}
 </script>
 </body>
 </html>
