@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>笔记预览</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #fff; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif; max-width: 420px; margin: 0 auto; min-height: 100vh; }
+
+/* 顶部导航 */
+.topbar { display: flex; align-items: center; justify-content: center; height: 44px; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; background: #fff; z-index: 10; }
+.topbar .back { position: absolute; left: 12px; font-size: 20px; cursor: pointer; color: #333; }
+.topbar .title { font-size: 16px; font-weight: 600; }
+
+/* 图片轮播 */
+.carousel { position: relative; width: 100%; overflow: hidden; background: #000; }
+.carousel-track { display: flex; transition: transform 0.3s ease; }
+.carousel-track img { min-width: 100%; height: auto; display: block; }
+.carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+.carousel-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); }
+.carousel-dots span.active { background: #fff; }
+.carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.4); color: #fff; font-size: 12px; padding: 2px 8px; border-radius: 10px; }
+
+/* 互动栏 */
+.actions { display: flex; align-items: center; padding: 8px 16px; gap: 16px; }
+.action-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; color: #333; font-size: 10px; cursor: pointer; }
+.action-btn .icon { font-size: 22px; }
+.action-btn .count { font-size: 11px; color: #999; }
+.action-spacer { flex: 1; }
+
+/* 作者信息 */
+.author-row { display: flex; align-items: center; padding: 10px 16px; gap: 10px; }
+.author-avatar { width: 32px; height: 32px; border-radius: 50%; background: #ddd; flex-shrink: 0; }
+.author-info { flex: 1; }
+.author-name { font-size: 14px; font-weight: 500; }
+.author-desc { font-size: 12px; color: #999; margin-top: 2px; }
+.follow-btn { padding: 4px 16px; border: 1px solid #ff2442; color: #ff2442; border-radius: 20px; font-size: 13px; background: #fff; cursor: pointer; }
+
+/* 笔记标题和正文 */
+.note-content { padding: 0 16px 16px; }
+.note-title { font-size: 16px; font-weight: 600; line-height: 1.5; margin-bottom: 10px; color: #333; }
+.note-text { font-size: 14px; line-height: 1.7; color: #333; }
+.note-text p { margin-bottom: 8px; }
+
+/* 标签 */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 16px; }
+.tag { color: #3379e6; font-size: 13px; }
+
+/* 发布时间 */
+.publish-time { padding: 0 16px 16px; font-size: 12px; color: #999; }
+
+/* 评论预览 */
+.comments-section { border-top: 8px solid #f5f5f5; padding: 12px 16px; }
+.comments-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.comment-item { display: flex; gap: 10px; margin-bottom: 12px; }
+.comment-avatar { width: 28px; height: 28px; border-radius: 50%; background: #eee; flex-shrink: 0; }
+.comment-content { flex: 1; }
+.comment-name { font-size: 13px; font-weight: 500; color: #999; }
+.comment-text { font-size: 14px; color: #333; margin-top: 2px; }
+.comment-time { font-size: 11px; color: #bbb; margin-top: 4px; }
+
+/* 底部输入框 */
+.bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 420px; display: flex; align-items: center; gap: 10px; padding: 8px 16px; background: #fff; border-top: 1px solid #f0f0f0; }
+.bottom-bar input { flex: 1; padding: 8px 12px; border-radius: 20px; border: 1px solid #eee; font-size: 14px; background: #f5f5f5; outline: none; }
+.bottom-bar .send-btn { color: #ff2442; font-size: 14px; font-weight: 500; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="back">‹</span>
+  <span class="title">笔记</span>
+</div>
+
+<div class="carousel" id="carousel">
+  <div class="carousel-track" id="track"><img src="./images/cover.png" alt=""></div>
+  <div class="carousel-counter" id="counter">1/1</div>
+  <div class="carousel-dots" id="dots"><span class="active"></span></div>
+</div>
+
+<div class="actions">
+  <div class="action-btn"><span class="icon">♥</span><span class="count">1523</span></div>
+  <div class="action-btn"><span class="icon">⭐</span><span class="count">544</span></div>
+  <div class="action-btn"><span class="icon">💬</span><span class="count">59</span></div>
+  <div class="action-spacer"></div>
+  <div class="action-btn"><span class="icon">↗</span><span class="count">分享</span></div>
+</div>
+
+<div class="author-row">
+  <div class="author-avatar"></div>
+  <div class="author-info">
+    <div class="author-name">爱卡卡亲子俱乐部</div>
+    <div class="author-desc">触觉养育 · 2010年创立 · 杭州</div>
+  </div>
+  <button class="follow-btn">+ 关注</button>
+</div>
+
+<div class="note-content">
+  <div class="note-title">从不举手的男孩，三个月后变了一个人</div>
+  <div class="note-text">
+<p>去年有个妈妈带儿子来我们这里。</p>
+<p>说孩子在学校从来不举手，不是不会，是怕答错。</p>
+<p>在家问他，他说：&quot;妈妈我不想被笑。&quot;</p>
+<p>来了之后他也不愿意参与，缩在角落。</p>
+<p>木工课老师给他一块木头，让他随便做什么。</p>
+<p>他小心翼翼刻了一个歪歪扭扭的小房子，拿给妈妈看的时候，眼睛都不敢抬。</p>
+<p>老师蹲下来跟他说：&quot;这个房子很特别，你喜欢什么呢？&quot;</p>
+<p>他说：&quot;我喜欢有阳台的，可以看星星。&quot;</p>
+<p>老师说：&quot;这个阳台设计得真好。&quot;</p>
+<p>就这一句话，他笑了。</p>
+<p>后来每次来他都主动挑最难的项目。
+在趣野的徒步里也敢走最前面了。</p>
+<p>三个月后妈妈跟我们说，老师反映他在学校开始举手回答问题了。</p>
+<p>自信不是&quot;告诉孩子你很棒&quot;就能建立的，它需要被真实的体验喂养。我们15年的教育实践发现，孩子在以下三种场景中最容易长出自信：一是亲手完成一件作品（趣造），二是在自然挑战中突破自己（趣野），三是被不带评价地理解和看见（趣养）。三者叠加，孩子会慢慢建立内在的&quot;我可以&quot;。</p>
+<p>我们相信每个孩子心里都有种子。
+我们要做的，是给够阳光和土壤。</p>
+</div>
+</div>
+
+<div class="tags"><span class="tag">#孩子不自信</span><span class="tag">#儿童自信心</span><span class="tag">#杭州亲子活动</span><span class="tag">#育儿干货</span><span class="tag">#SEL社会情感学习</span><span class="tag">#卡卡亲子俱乐部</span></div>
+
+<div class="publish-time">03-20 发布</div>
+
+<div class="comments-section">
+  <div class="comments-title">评论</div>
+  <div class="comment-item">
+    <div class="comment-avatar"></div>
+    <div class="comment-content">
+      <div class="comment-name">家居达人小王</div>
+      <div class="comment-text">第三点太对了！之前买过一套一模一样的，后来才知道是贴皮的😅</div>
+      <div class="comment-time">3小时前</div>
+    </div>
+  </div>
+</div>
+
+<div style="height: 60px;"></div>
+
+<div class="bottom-bar">
+  <input type="text" placeholder="说点什么…">
+  <span class="send-btn">发送</span>
+</div>
+
+<script>
+let current = 0;
+const track = document.getElementById('track');
+const counter = document.getElementById('counter');
+const dots = document.querySelectorAll('#dots span');
+const total = track.children.length;
+
+let startX = 0, isDragging = false;
+
+document.getElementById('carousel').addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
+document.getElementById('carousel').addEventListener('touchend', e => {
+  if (!isDragging) return;
+  isDragging = false;
+  const diff = startX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+});
+document.getElementById('carousel').addEventListener('click', e => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  if (e.clientX - rect.left > rect.width / 2) next(); else prev();
+});
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  counter.textContent = `${current + 1}/${total}`;
+  dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+}
+function next() { goTo(current + 1); }
+function prev() { goTo(current - 1); }
+</script>
+
+</body>
+</html>
