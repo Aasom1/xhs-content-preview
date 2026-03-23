@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>高仿小红书页面</title>
+    <style>
+      :root {
+        --bg: #f6f6f8;
+        --card: #ffffff;
+        --text: #1d1d1f;
+        --subtext: #86868b;
+        --divider: rgba(0, 0, 0, 0.06);
+        --shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+        --radius: 14px;
+        --accent: #ff2f68;
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC",
+          "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      button {
+        font: inherit;
+        color: inherit;
+      }
+
+      .app {
+        min-height: 100%;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(246, 246, 248, 0.88);
+        backdrop-filter: saturate(160%) blur(16px);
+        border-bottom: 1px solid var(--divider);
+        padding-top: var(--safe-top);
+      }
+
+      .topbar-inner {
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 0 16px;
+      }
+
+      .topbar-title {
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+
+      .topbar-action {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 10px;
+        background: transparent;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .topbar-action:active {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .page {
+        display: none;
+      }
+
+      .page.is-active {
+        display: block;
+      }
+
+      .list-wrap {
+        padding: 12px 12px calc(20px + var(--safe-bottom));
+      }
+
+      .masonry {
+        columns: 2;
+        column-gap: 10px;
+      }
+
+      @media (min-width: 520px) {
+        .masonry {
+          columns: 3;
+        }
+      }
+
+      .card {
+        break-inside: avoid;
+        margin: 0 0 10px;
+        background: var(--card);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+        cursor: pointer;
+        transform: translateZ(0);
+        transition: transform 0.12s ease;
+      }
+
+      .card:active {
+        transform: scale(0.985);
+      }
+
+      .cover {
+        width: 100%;
+        background: #eee;
+        position: relative;
+      }
+
+      .cover::before {
+        content: "";
+        display: block;
+        padding-top: 132%;
+      }
+
+      .cover img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card-body {
+        padding: 10px 10px 12px;
+      }
+
+      .card-title {
+        font-size: 14px;
+        line-height: 1.35;
+        font-weight: 700;
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin: 0 0 10px;
+      }
+
+      .card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .publish {
+        font-size: 12px;
+        color: var(--subtext);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .likes {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: var(--subtext);
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+
+      .likes svg {
+        width: 16px;
+        height: 16px;
+        opacity: 0.8;
+      }
+
+      .skeleton {
+        padding: 28px 16px;
+        color: var(--subtext);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .detail-wrap {
+        padding: 12px 12px calc(108px + var(--safe-bottom));
+      }
+
+      .detail-card {
+        background: var(--card);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .detail-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 12;
+        background: rgba(246, 246, 248, 0.88);
+        backdrop-filter: saturate(160%) blur(16px);
+        border-bottom: 1px solid var(--divider);
+        padding-top: var(--safe-top);
+      }
+
+      .detail-topbar-inner {
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 0 16px;
+      }
+
+      .back-btn {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 10px;
+        background: transparent;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .back-btn:active {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .gallery {
+        position: relative;
+        background: #f0f0f2;
+      }
+
+      .gallery-track {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-snap-stop: always;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        touch-action: pan-x;
+        overscroll-behavior-x: contain;
+      }
+
+      .gallery-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .gallery-item {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        position: relative;
+      }
+
+      .gallery-item::before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
+
+      .gallery-item img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .dots {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        pointer-events: none;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .dot.is-active {
+        background: rgba(255, 255, 255, 0.95);
+        width: 16px;
+      }
+
+      .detail-body {
+        padding: 14px 14px 18px;
+      }
+
+      .detail-title {
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 1.25;
+        margin: 0 0 10px;
+      }
+
+      .detail-meta {
+        font-size: 13px;
+        color: var(--subtext);
+        margin-bottom: 12px;
+      }
+
+      .detail-content {
+        font-size: 15px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+
+      .topics {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .topic {
+        font-size: 13px;
+        color: #4b4b52;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(92px + var(--safe-bottom));
+        background: rgba(0, 0, 0, 0.82);
+        color: #fff;
+        padding: 10px 12px;
+        border-radius: 12px;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        z-index: 30;
+      }
+
+      .toast.is-show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-4px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar" id="listTopbar">
+        <div class="topbar-inner">
+          <div class="topbar-title">小红书笔记预览</div>
+          <button class="topbar-action" type="button" aria-label="搜索" title="搜索">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="M16.2 16.2 21 21"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="page is-active" id="listPage" aria-label="内容列表">
+        <div class="list-wrap">
+          <div class="masonry" id="list"></div>
+          <div class="skeleton" id="listEmpty" style="display: none">暂无内容</div>
+        </div>
+      </section>
+
+      <header class="detail-topbar" id="detailTopbar" style="display: none">
+        <div class="detail-topbar-inner">
+          <button class="back-btn" type="button" id="backBtn" aria-label="返回" title="返回">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M15 5 8 12l7 7"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <div class="topbar-title">笔记详情</div>
+        </div>
+      </header>
+
+      <section class="page" id="detailPage" aria-label="内容详情">
+        <div class="detail-wrap">
+          <article class="detail-card" id="detailCard"></article>
+        </div>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <script>
+      const DEFAULT_DATA = [
+        {
+          id: "a1",
+          title: "收撩残落星盖 130 左右。",
+          content:
+            "这是一个示例正文，用于展示仿小红书的内容详情排版。\n\n支持多行文本、换行与段落。",
+          topic: ["杭州", "穿搭", "生活记录"],
+          publishDate: "2026-03-23 15:08",
+          likes: 9,
+          images: [
+            "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1541443131876-44b03de101c5?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: "a2",
+          title: "openclaw 本地端为啥一定得是 Mac mini？",
+          content:
+            "示例正文：把你要展示的内容通过接口传入即可。\n\n点击卡片进入详情，图片支持横向滑动。",
+          topic: ["开发", "工具", "本地部署"],
+          publishDate: "2026-03-22 11:30",
+          likes: 33,
+          images: [
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1555617117-08c5af2fa3cf?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: "a3",
+          title: "资产下跌，梦幻西游价值还能暴涨原因",
+          content:
+            "示例正文：你可以传入更长的文本，查看排版效果。\n\nTopic 会以标签形式展示在正文下方。",
+          topic: ["梦幻西游", "游戏", "经济观察"],
+          publishDate: "2026-03-20 09:12",
+          likes: 227,
+          images: [
+            "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
+          ]
+        }
+      ];
+
+      function normalizeTopic(topic) {
+        if (!topic) return [];
+        if (Array.isArray(topic)) return topic.filter(Boolean).map(String);
+        return String(topic)
+          .split(/[,\s]+/g)
+          .filter(Boolean);
+      }
+
+      function toTimestamp(value) {
+        if (value == null) return 0;
+        if (typeof value === "number") return value;
+        if (value instanceof Date) return value.getTime();
+        const str = String(value).trim();
+        const direct = new Date(str).getTime();
+        if (!Number.isNaN(direct)) return direct;
+        const normalized = str.replace(/-/g, "/");
+        const t = new Date(normalized).getTime();
+        return Number.isNaN(t) ? 0 : t;
+      }
+
+      function pad2(n) {
+        return String(n).padStart(2, "0");
+      }
+
+      function formatMonthDay(value) {
+        const ts = toTimestamp(value);
+        if (ts) {
+          const d = new Date(ts);
+          return `${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+        }
+
+        const str = String(value || "").trim();
+        const ymd = str.match(/(?:\d{4}[/-])(\d{1,2})[/-](\d{1,2})/);
+        if (ymd) return `${pad2(ymd[1])}-${pad2(ymd[2])}`;
+
+        const md = str.match(/(\d{1,2})[/-](\d{1,2})/);
+        if (md) return `${pad2(md[1])}-${pad2(md[2])}`;
+
+        const cn = str.match(/(\d{1,2})\s*月\s*(\d{1,2})/);
+        if (cn) return `${pad2(cn[1])}-${pad2(cn[2])}`;
+
+        return "";
+      }
+
+      function formatLikes(n) {
+        const value = Number(n) || 0;
+        if (value < 10000) return String(value);
+        const w = value / 10000;
+        const fixed = w < 10 ? w.toFixed(1) : String(Math.floor(w));
+        return fixed.replace(/\.0$/, "") + "w";
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("is-show");
+        window.clearTimeout(showToast._timer);
+        showToast._timer = window.setTimeout(() => toast.classList.remove("is-show"), 1400);
+      }
+
+      function base64ToUtf8(b64) {
+        const bin = atob(b64);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        if (typeof TextDecoder !== "undefined") return new TextDecoder("utf-8").decode(bytes);
+        let str = "";
+        for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
+        try {
+          return decodeURIComponent(escape(str));
+        } catch {
+          return str;
+        }
+      }
+
+      const store = {
+        items: [],
+      };
+
+      function setData(config) {
+        const input = config && typeof config === "object" ? config : {};
+        const items = Array.isArray(input.items) ? input.items : [];
+
+        store.items = items
+          .map((raw, index) => {
+            const id = raw && raw.id != null ? String(raw.id) : String(index);
+            const images = Array.isArray(raw.images) ? raw.images.filter(Boolean).map(String) : [];
+            return {
+              id,
+              title: raw && raw.title != null ? String(raw.title) : "",
+              content: raw && raw.content != null ? String(raw.content) : "",
+              topic: normalizeTopic(raw && raw.topic),
+              publishDate: raw && raw.publishDate != null ? raw.publishDate : "",
+              publishTs: toTimestamp(raw && raw.publishDate),
+              likes: raw && raw.likes != null ? Number(raw.likes) : 0,
+              images
+            };
+          })
+          .sort((a, b) => b.publishTs - a.publishTs);
+
+        render();
+      }
+
+      function getItemById(id) {
+        return store.items.find((x) => x.id === id) || null;
+      }
+
+      function renderList() {
+        const list = document.getElementById("list");
+        const empty = document.getElementById("listEmpty");
+        list.innerHTML = "";
+
+        if (!store.items.length) {
+          empty.style.display = "block";
+          return;
+        }
+        empty.style.display = "none";
+
+        const frag = document.createDocumentFragment();
+        for (const item of store.items) {
+          const coverUrl = item.images[0] || "";
+          const card = document.createElement("div");
+          card.className = "card";
+          card.tabIndex = 0;
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", item.title || "内容");
+          card.addEventListener("click", () => {
+            location.hash = "#/detail/" + encodeURIComponent(item.id);
+          });
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              location.hash = "#/detail/" + encodeURIComponent(item.id);
+            }
+          });
+
+          card.innerHTML = `
+            <div class="cover">
+              ${coverUrl ? `<img src="${escapeHtml(coverUrl)}" alt="" loading="lazy" />` : ""}
+            </div>
+            <div class="card-body">
+              <div class="card-title">${escapeHtml(item.title)}</div>
+              <div class="card-meta">
+                <div class="publish">发布时间 · ${escapeHtml(formatMonthDay(item.publishDate))}</div>
+                <div class="likes" aria-label="点赞数 ${formatLikes(item.likes)}">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M12.1 20.3s-7.2-4.5-9.3-8.2C1 8.9 2.5 6.1 5.4 5.4c1.7-.4 3.4.2 4.6 1.5 1.2-1.3 2.9-1.9 4.6-1.5 2.9.7 4.4 3.5 2.6 6.7-2.1 3.7-9.3 8.2-9.3 8.2Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span>${escapeHtml(formatLikes(item.likes))}</span>
+                </div>
+              </div>
+            </div>
+          `;
+
+          frag.appendChild(card);
+        }
+        list.appendChild(frag);
+      }
+
+      function renderDetail(itemId) {
+        const card = document.getElementById("detailCard");
+        const item = getItemById(itemId);
+
+        if (!item) {
+          card.innerHTML = `<div class="detail-body"><div class="detail-title">内容不存在</div></div>`;
+          return;
+        }
+
+        const dots = item.images
+          .map((_, idx) => `<span class="dot ${idx === 0 ? "is-active" : ""}"></span>`)
+          .join("");
+
+        const images = item.images
+          .map(
+            (url) => `
+              <div class="gallery-item">
+                <img src="${escapeHtml(url)}" alt="" loading="lazy" />
+              </div>
+            `
+          )
+          .join("");
+
+        const topicHtml = item.topic.length
+          ? `<div class="topics">${item.topic
+              .map((t) => `<span class="topic">#${escapeHtml(t)}</span>`)
+              .join("")}</div>`
+          : "";
+
+        card.innerHTML = `
+          <div class="gallery">
+            <div class="gallery-track" id="galleryTrack">${images}</div>
+            ${item.images.length > 1 ? `<div class="dots" id="dots">${dots}</div>` : ""}
+          </div>
+          <div class="detail-body">
+            <h1 class="detail-title">${escapeHtml(item.title)}</h1>
+            <div class="detail-meta">发布时间 · ${escapeHtml(formatMonthDay(item.publishDate))}</div>
+            <div class="detail-content">${escapeHtml(item.content)}</div>
+            ${topicHtml}
+          </div>
+        `;
+
+        const track = document.getElementById("galleryTrack");
+        const dotsEl = document.getElementById("dots");
+        if (track && dotsEl) {
+          const dotEls = Array.from(dotsEl.querySelectorAll(".dot"));
+          const updateDots = () => {
+            const width = track.clientWidth || 1;
+            const idx = Math.round(track.scrollLeft / width);
+            dotEls.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+          };
+          track.addEventListener("scroll", () => window.requestAnimationFrame(updateDots), { passive: true });
+          updateDots();
+        }
+
+      }
+
+      function renderRoute() {
+        const hash = location.hash || "#/";
+        const path = hash.split("?")[0] || "#/";
+        const isDetail = path.startsWith("#/detail/");
+        const listPage = document.getElementById("listPage");
+        const detailPage = document.getElementById("detailPage");
+        const listTopbar = document.getElementById("listTopbar");
+        const detailTopbar = document.getElementById("detailTopbar");
+
+        if (!isDetail) {
+          listPage.classList.add("is-active");
+          detailPage.classList.remove("is-active");
+          listTopbar.style.display = "";
+          detailTopbar.style.display = "none";
+          renderList();
+          return;
+        }
+
+        const id = decodeURIComponent(path.replace("#/detail/", ""));
+        listPage.classList.remove("is-active");
+        detailPage.classList.add("is-active");
+        listTopbar.style.display = "none";
+        detailTopbar.style.display = "";
+        renderDetail(id);
+      }
+
+      function render() {
+        renderRoute();
+      }
+
+      document.getElementById("backBtn").addEventListener("click", () => {
+        if (history.length > 1) history.back();
+        else location.hash = "#/";
+      });
+
+      window.addEventListener("hashchange", renderRoute);
+
+      window.XhsPage = {
+        setData
+      };
+
+      function readQueryConfig() {
+        const params = new URLSearchParams(location.search);
+        const raw = params.get("xhs") || params.get("data") || params.get("b64");
+        if (!raw) return null;
+
+        if (params.get("b64")) {
+          try {
+            const decoded = base64ToUtf8(raw);
+            return JSON.parse(decoded);
+          } catch {
+            return null;
+          }
+        }
+
+        try {
+          return JSON.parse(decodeURIComponent(raw));
+        } catch {}
+        try {
+          return JSON.parse(raw);
+        } catch {
+          return null;
+        }
+      }
+
+      const queryConfig = readQueryConfig();
+      const initialConfig = queryConfig
+        ? queryConfig
+        : window.XHS_PAGE_CONFIG && typeof window.XHS_PAGE_CONFIG === "object"
+          ? window.XHS_PAGE_CONFIG
+          : { items: DEFAULT_DATA };
+
+      setData(initialConfig);
+    </script>
+  </body>
+</html>
