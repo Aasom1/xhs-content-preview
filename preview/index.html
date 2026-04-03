@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>高仿小红书页面</title>
+    <title>小红书笔记预览</title>
     <style>
       :root {
         --bg: #f6f6f8;
@@ -104,19 +104,13 @@
       }
 
       .masonry {
-        columns: 2;
-        column-gap: 10px;
-      }
-
-      @media (min-width: 520px) {
-        .masonry {
-          columns: 3;
-        }
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
       .card {
-        break-inside: avoid;
-        margin: 0 0 10px;
+        width: calc(50% - 5px);
         background: var(--card);
         border-radius: var(--radius);
         overflow: hidden;
@@ -124,6 +118,15 @@
         cursor: pointer;
         transform: translateZ(0);
         transition: transform 0.12s ease;
+      }
+
+      @media (min-width: 520px) {
+        .masonry {
+          gap: 12px;
+        }
+        .card {
+          width: calc(33.333% - 8px);
+        }
       }
 
       .card:active {
@@ -749,6 +752,25 @@
 
       function readQueryConfig() {
         const params = new URLSearchParams(location.search);
+        const src = params.get("src");
+
+        if (src) {
+          fetch(src)
+            .then(r => {
+              if (!r.ok) throw new Error(`HTTP ${r.status}`);
+              return r.json();
+            })
+            .then(data => {
+              console.log('Data loaded:', data);
+              setData(data);
+            })
+            .catch(err => {
+              console.error('Failed to load data:', err);
+              showToast('加载失败：' + err.message);
+            });
+          return "ASYNC";
+        }
+
         const raw = params.get("xhs") || params.get("data") || params.get("b64");
         if (!raw) return null;
 
@@ -772,13 +794,16 @@
       }
 
       const queryConfig = readQueryConfig();
-      const initialConfig = queryConfig
-        ? queryConfig
-        : window.XHS_PAGE_CONFIG && typeof window.XHS_PAGE_CONFIG === "object"
-          ? window.XHS_PAGE_CONFIG
-          : { items: DEFAULT_DATA };
-
-      setData(initialConfig);
+      if (queryConfig === "ASYNC") {
+        document.title = "加载中...";
+      } else {
+        const initialConfig = queryConfig
+          ? queryConfig
+          : window.XHS_PAGE_CONFIG && typeof window.XHS_PAGE_CONFIG === "object"
+            ? window.XHS_PAGE_CONFIG
+            : { items: DEFAULT_DATA };
+        setData(initialConfig);
+      }
     </script>
   </body>
 </html>
