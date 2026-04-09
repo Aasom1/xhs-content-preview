@@ -1,2 +1,3 @@
 /content/*/images/*  200
 /data/*  200
+*.json  200
