@@ -755,9 +755,13 @@
         const src = params.get("src");
 
         if (src) {
+          // Use GitHub Raw for faster deployment (no CDN cache)
+          const githubSrc = src.startsWith('/data/') 
+            ? `https://raw.githubusercontent.com/Aasom1/xhs-content-preview/main${src}`
+            : src;
           // Add timestamp to bypass browser cache
-          const cacheBuster = src.includes('?') ? '&' : '?';
-          fetch(`${src}${cacheBuster}t=${Date.now()}`)
+          const cacheBuster = githubSrc.includes('?') ? '&' : '?';
+          fetch(`${githubSrc}${cacheBuster}t=${Date.now()}`)
             .then(r => {
               if (!r.ok) throw new Error(`HTTP ${r.status}`);
               return r.json();
