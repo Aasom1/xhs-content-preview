@@ -755,13 +755,13 @@
         const src = params.get("src");
 
         if (src) {
-          // Use GitHub Raw for faster deployment (no CDN cache)
-          const githubSrc = src.startsWith('/data/') 
-            ? `https://raw.githubusercontent.com/Aasom1/xhs-content-preview/main${src}`
+          // Use same domain for data (Cloudflare Pages)
+          const dataSrc = src.startsWith('/data/') 
+            ? src
             : src;
           // Add timestamp to bypass browser cache
-          const cacheBuster = githubSrc.includes('?') ? '&' : '?';
-          fetch(`${githubSrc}${cacheBuster}t=${Date.now()}`)
+          const cacheBuster = dataSrc.includes('?') ? '&' : '?';
+          fetch(`${dataSrc}${cacheBuster}t=${Date.now()}`)
             .then(r => {
               if (!r.ok) throw new Error(`HTTP ${r.status}`);
               return r.json();
