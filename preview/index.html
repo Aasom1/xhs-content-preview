@@ -755,7 +755,9 @@
         const src = params.get("src");
 
         if (src) {
-          fetch(src)
+          // Add timestamp to bypass browser cache
+          const cacheBuster = src.includes('?') ? '&' : '?';
+          fetch(`${src}${cacheBuster}t=${Date.now()}`)
             .then(r => {
               if (!r.ok) throw new Error(`HTTP ${r.status}`);
               return r.json();
